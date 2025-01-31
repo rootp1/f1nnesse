@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.translucent-bg {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.translucent-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
