@@ -27,7 +27,7 @@ const Navbar = () => {
     { name: "Home", href: "/", allowedUsers: ["user", "admin"] },
     { name: "Display", href: "/display", allowedUsers: ["user", "admin"] },
     { name: "Your Bets", href: "/your-bets", allowedUsers: ["user"] },
-    { name: "History", href: "/history", allowedUsers: ["user"] },
+    { name: "Bet", href: "/bet", allowedUsers: ["user"] },
     { name: "Profile", href: "/profile", allowedUsers: ["user"] },
     { name: "Leaderboard", href: "/leaderboard", allowedUsers: ["user", "admin"] },
     { name: "Listing", href: "/listing", allowedUsers: ["admin"] },
