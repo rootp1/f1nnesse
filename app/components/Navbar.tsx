@@ -1,27 +1,27 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [userType, setUserType] = useState<string | null>(null)
-  const pathname = usePathname()
-  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false);
+  const [userType, setUserType] = useState<string | null>(null);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
-    const storedUserType = localStorage.getItem("userType")
-    setUserType(storedUserType)
-  }, [])
+    const storedUserType = localStorage.getItem("userType");
+    setUserType(storedUserType);
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("userType")
-    setUserType(null)
-    router.push("/")
-  }
+    localStorage.removeItem("userType");
+    setUserType(null);
+    router.push("/");
+  };
 
   const navItems = [
     { name: "Home", href: "/", allowedUsers: ["user", "admin"] },
@@ -31,18 +31,20 @@ const Navbar = () => {
     { name: "Profile", href: "/profile", allowedUsers: ["user"] },
     { name: "Leaderboard", href: "/leaderboard", allowedUsers: ["user", "admin"] },
     { name: "Listing", href: "/listing", allowedUsers: ["admin"] },
+
     { name: "Admin", href: "/admin", allowedUsers: ["admin"] },
-  ]
+  
+  ];
 
   const filteredNavItems = navItems.filter((item) => {
     if (userType === "user") {
-      return item.name !== "Listing"
+      return item.name !== "Listing";
     }
     if (userType === "admin") {
-      return item.name !== "Your Bets" && item.name !== "History"
+      return item.name !== "Your Bets" && item.name !== "History";
     }
-    return true
-  })
+    return true;
+  });
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-50 backdrop-blur-md">
@@ -138,8 +140,7 @@ const Navbar = () => {
         </motion.div>
       )}
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
-
+export default Navbar;

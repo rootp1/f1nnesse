@@ -1,3 +1,4 @@
+// lib/firebase.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -8,7 +9,7 @@ const firebaseConfig = {
   projectId: "iitrsba",
   storageBucket: "iitrsba.firebasestorage.app",
   messagingSenderId: "393673240182",
-  appId: "1:393673240182:web:fa2d953fc9a1c366737957"
+  appId: "1:393673240182:web:fa2d953fc9a1c366737957",
 };
 
 const app = initializeApp(firebaseConfig);

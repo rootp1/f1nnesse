@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import AccessControl from "../components/AccessControl"
-import { useMatches } from "../contexts/MatchesContext"
+import { useState, type ChangeEvent, type FormEvent } from "react"; // Import types
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import AccessControl from "../components/AccessControl";
+import { useMatches } from "../contexts/MatchesContext";
 
 export default function Listing() {
-  const { addMatch } = useMatches()
+  const { addMatch } = useMatches();
   const [matchData, setMatchData] = useState({
     team1: "",
     team2: "",
@@ -17,21 +17,37 @@ export default function Listing() {
     time: "",
     venue: "",
     sport: "",
-  })
+  });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setMatchData((prev) => ({ ...prev, [name]: value }))
-  }
+  // Explicitly type the event parameter
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setMatchData((prev) => ({ ...prev, [name]: value }));
+  };
 
+  // Explicitly type the value parameter (string)
   const handleSportChange = (value: string) => {
-    setMatchData((prev) => ({ ...prev, sport: value }))
-  }
+    setMatchData((prev) => ({ ...prev, sport: value }));
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    addMatch(matchData)
-    // Reset form
+  // Explicitly type the form submission event
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Prepare the match data (excluding `id`)
+    const newMatch = {
+      sport: matchData.sport,
+      team1: matchData.team1,
+      team2: matchData.team2,
+      date: matchData.date,
+      time: matchData.time,
+      venue: matchData.venue,
+    };
+
+    // Add the match to Firestore
+    await addMatch(newMatch);
+
+    // Reset the form
     setMatchData({
       team1: "",
       team2: "",
@@ -39,8 +55,8 @@ export default function Listing() {
       time: "",
       venue: "",
       sport: "",
-    })
-  }
+    });
+  };
 
   return (
     <AccessControl allowedUserTypes={["admin"]}>
@@ -56,7 +72,7 @@ export default function Listing() {
                 <Input
                   name="team1"
                   value={matchData.team1}
-                  onChange={handleInputChange}
+                  onChange={handleInputChange} // Typed handler
                   placeholder="Team 1"
                   required
                   className="bg-gray-700 text-white"
@@ -64,7 +80,7 @@ export default function Listing() {
                 <Input
                   name="team2"
                   value={matchData.team2}
-                  onChange={handleInputChange}
+                  onChange={handleInputChange} // Typed handler
                   placeholder="Team 2"
                   required
                   className="bg-gray-700 text-white"
@@ -72,7 +88,7 @@ export default function Listing() {
                 <Input
                   name="date"
                   value={matchData.date}
-                  onChange={handleInputChange}
+                  onChange={handleInputChange} // Typed handler
                   type="date"
                   required
                   className="bg-gray-700 text-white"
@@ -80,7 +96,7 @@ export default function Listing() {
                 <Input
                   name="time"
                   value={matchData.time}
-                  onChange={handleInputChange}
+                  onChange={handleInputChange} // Typed handler
                   type="time"
                   required
                   className="bg-gray-700 text-white"
@@ -88,8 +104,8 @@ export default function Listing() {
                 <Input
                   name="venue"
                   value={matchData.venue}
-                  onChange={handleInputChange}
-                  placeholder="Venue"
+                  onChange={handleInputChange} // Typed handler
+                  placeholder="Venue + Match Details"
                   required
                   className="bg-gray-700 text-white"
                 />
@@ -102,6 +118,16 @@ export default function Listing() {
                     <SelectItem value="basketball">Basketball</SelectItem>
                     <SelectItem value="tennis">Tennis</SelectItem>
                     <SelectItem value="cricket">Cricket</SelectItem>
+                    <SelectItem value="volleyball">Volleyball</SelectItem>
+                    <SelectItem value="hockey">Hockey</SelectItem>
+                    <SelectItem value="foosball">Foosball</SelectItem>
+                    <SelectItem value="table-tennis">Table Tennis</SelectItem>
+                    <SelectItem value="chess">Chess</SelectItem>
+                    <SelectItem value="carrom">Carrom</SelectItem>
+                    <SelectItem value="squash">Squash</SelectItem>
+                    <SelectItem value="boxing">Boxing</SelectItem>
+                    <SelectItem value="taekwondo">Taekwondo</SelectItem>
+                    <SelectItem value="swimming">Swimming</SelectItem>
                   </SelectContent>
                 </Select>
                 <Button type="submit" className="w-full">
@@ -113,6 +139,5 @@ export default function Listing() {
         </div>
       </main>
     </AccessControl>
-  )
+  );
 }
-
