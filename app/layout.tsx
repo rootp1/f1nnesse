@@ -8,7 +8,7 @@ import { MatchesProvider } from "./contexts/MatchesContext"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "SportsBet - Futuristic Sports Betting Platform",
+  title: "f!nnesse",
   description: "Experience the thrill of sports betting with our modern, sleek, and user-friendly platform.",
 }
 
