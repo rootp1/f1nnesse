@@ -17,7 +17,7 @@ const Hero = () => {
         transition={{ duration: 0.8 }}
         className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
       >
-        Welcome to SportsBet
+        f!nnesse
       </motion.h1>
       <motion.p
         initial={{ opacity: 0, y: -20 }}
@@ -25,9 +25,8 @@ const Hero = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl"
       >
-        Experience the thrill of sports betting with our futuristic platform. Add matches, place bets, and track your
-        progress all in one place.
-      </motion.p>
+
+The sole platform dedicated to the IIT Roorkee Inter-Bhawan Sports Championship 2025, providing comprehensive event information along with real-time score updates. Additionally, the app offers an interactive feature allowing users to place friendly bets on their favorite Bhawan for an engaging experience.      </motion.p>
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

@@ -4,9 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import AccessControl from "../components/AccessControl"
 
 const leaderboardData = [
-  { id: 1, username: "user1", winnings: 1000 },
-  { id: 2, username: "user2", winnings: 850 },
-  { id: 3, username: "user3", winnings: 750 },
+  { id: 1 , username: " RKB", winnings: 20  },
+  { id: 2 , username: " AZAD", winnings: 18 },
+  { id: 3 , username: " GOVIND", winnings: 13 },
   // Add more mock data as needed
 ]
 
@@ -25,7 +25,7 @@ export default function Leaderboard() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>Total Winnings: ${user.winnings}</p>
+                  <p>Total Winnings: {user.winnings} wins</p>
                 </CardContent>
               </Card>
             ))}

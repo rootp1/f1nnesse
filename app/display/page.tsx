@@ -132,7 +132,7 @@ function MatchCard({ match, contract, account }: {
   return (
     <Card className="hover:shadow-lg transition-shadow duration-200">
       <CardHeader>
-        <CardTitle className="text-xl">{match.sport}</CardTitle>
+        <CardTitle className="text-2xl font-semibold">{match.sport}</CardTitle> {/* Increased size */}
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
