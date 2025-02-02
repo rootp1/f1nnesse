@@ -7,7 +7,7 @@ import AccessControl from "../components/AccessControl";
 import { useMatches } from "../contexts/MatchesContext";
 import { BrowserProvider, Contract, parseEther, formatEther } from "ethers";
 
-const CONTRACT_ADDRESS = "0x5270eed49Ee424FCf1b13c1de651F7424661E471";
+const CONTRACT_ADDRESS = "0x19da7f4c6ae1B194CBB8585a7d7aEcB8d5D1987E";
 const CONTRACT_ABI = [
   "function placeBet(string memory team) external payable",
   "function declareWinner(string memory winningTeam) external",

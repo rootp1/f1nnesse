@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,7 +17,7 @@ import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { ethers } from "ethers";
 import bettingAbi from "@/lib/bettingAbi.json";
 
-const CONTRACT_ADDRESS = "0x5270eed49Ee424FCf1b13c1de651F7424661E471";
+const CONTRACT_ADDRESS = "0x19da7f4c6ae1B194CBB8585a7d7aEcB8d5D1987E";
 
 export default function Admin() {
   const [matches, setMatches] = useState<Array<any>>([]);
