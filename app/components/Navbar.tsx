@@ -26,24 +26,26 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", href: "/", allowedUsers: ["user", "admin"] },
     { name: "Display", href: "/display", allowedUsers: ["user", "admin"] },
-    { name: "Your Bets", href: "/your-bets", allowedUsers: ["user"] },
+
     { name: "Bet", href: "/bet", allowedUsers: ["user"] },
     { name: "Profile", href: "/profile", allowedUsers: ["user"] },
     { name: "Leaderboard", href: "/leaderboard", allowedUsers: ["user", "admin"] },
     { name: "Listing", href: "/listing", allowedUsers: ["admin"] },
-
-    { name: "Admin", href: "/admin", allowedUsers: ["admin"] },
-  
+    { name: userType ? "Admin" : "Login", href: userType ? "/admin" : "/login", allowedUsers: ["admin"] },
   ];
 
+  // Filter nav items based on userType
   const filteredNavItems = navItems.filter((item) => {
     if (userType === "user") {
-      return item.name !== "Listing";
+      // Admin-related items should be hidden for a normal user
+      return item.allowedUsers.includes("user");
     }
     if (userType === "admin") {
-      return item.name !== "Your Bets" && item.name !== "History";
+      // Hide "Your Bets" for admin and show "Listing"
+      return item.allowedUsers.includes("admin") || item.allowedUsers.includes("user");
     }
-    return true;
+    // If no userType, only show public items
+    return item.allowedUsers.includes("user") || item.allowedUsers.includes("admin");
   });
 
   return (
@@ -52,7 +54,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="text-white font-bold text-xl">
-              SportsBet
+              f!nesse
             </Link>
           </div>
           <div className="hidden md:block">
@@ -71,7 +73,7 @@ const Navbar = () => {
                 </Link>
               ))}
               {userType && (
-                <Button onClick={handleLogout} variant="outline" size="sm">
+                <Button onClick={handleLogout} variant="outline" size="sm" className="text-black border-black">
                   Logout
                 </Button>
               )}

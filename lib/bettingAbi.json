@@ -8,12 +8,6 @@
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "matchId",
-				"type": "uint256"
-			},
-			{
 				"indexed": true,
 				"internalType": "address",
 				"name": "user",
@@ -36,19 +30,7 @@
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "createMatch",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "matchId",
-				"type": "uint256"
-			},
 			{
 				"internalType": "string",
 				"name": "team",
@@ -65,12 +47,6 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "uint256",
-				"name": "matchId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
 				"internalType": "string",
 				"name": "winningTeam",
 				"type": "string"
@@ -82,12 +58,6 @@
 	{
 		"anonymous": false,
 		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "matchId",
-				"type": "uint256"
-			},
 			{
 				"indexed": true,
 				"internalType": "address",
@@ -107,11 +77,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "matchId",
-				"type": "uint256"
-			},
-			{
 				"internalType": "string",
 				"name": "team",
 				"type": "string"
@@ -124,12 +89,48 @@
 	},
 	{
 		"inputs": [],
+		"name": "resetMatch",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "BET_AMOUNT",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "bets",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "team",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -162,14 +163,8 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "matchId",
-				"type": "uint256"
-			}
-		],
-		"name": "getBets",
+		"inputs": [],
+		"name": "getAllBets",
 		"outputs": [
 			{
 				"components": [
@@ -199,41 +194,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "matchCounter",
+		"name": "matchEnded",
 		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "matches",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "matchId",
-				"type": "uint256"
-			},
 			{
 				"internalType": "bool",
-				"name": "matchEnded",
+				"name": "",
 				"type": "bool"
-			},
-			{
-				"internalType": "string",
-				"name": "winningTeam",
-				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -247,6 +213,19 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "winningTeam",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",

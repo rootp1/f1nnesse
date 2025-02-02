@@ -85,56 +85,61 @@ export default function Profile() {
     <AccessControl allowedUserTypes={["user"]}>
       <main className="min-h-screen pt-16">
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-4xl font-bold mb-8">User Profile</h1>
-          <Card>
+          <h1 className="text-4xl font-bold mb-8 text-white">User Profile</h1>
+          <Card className="bg-black text-white">
             <CardHeader>
               <CardTitle>Profile Information</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block mb-1 text-black">Name</label>
+                  <label className="block mb-1 text-white">Name</label>
                   <Input
                     name="name"
                     value={profile.name}
                     onChange={handleInputChange}
                     readOnly={!isEditing}
                     required
-                    className="text-black"
+                    className="bg-gray-800 text-white"
                   />
                 </div>
                 <div>
-                  <label className="block mb-1 text-black">Email</label>
-                  <Input name="email" value={profile.email} readOnly className="text-black" />
+                  <label className="block mb-1 text-white">Email</label>
+                  <Input 
+                    name="email" 
+                    value={profile.email} 
+                    readOnly 
+                    className="bg-gray-800 text-white"
+                  />
                 </div>
                 <div>
-                  <label className="block mb-1 text-black">Username</label>
+                  <label className="block mb-1 text-white">Username</label>
                   <Input
                     name="username"
                     value={profile.username}
                     onChange={handleInputChange}
                     readOnly={!isEditing}
                     required
-                    className="text-black"
+                    className="bg-gray-800 text-white"
                   />
                 </div>
                 <div>
-                  <label className="block mb-1 text-black">Hostel</label>
+                  <label className="block mb-1 text-white">Hostel</label>
                   <Input
                     name="hostel"
                     value={profile.hostel}
                     onChange={handleInputChange}
                     readOnly={!isEditing}
                     required
-                    className="text-black"
+                    className="bg-gray-800 text-white"
                   />
                 </div>
                 {isEditing ? (
-                  <Button type="submit" disabled={loading}>
+                  <Button type="submit" disabled={loading} className="bg-white text-black">
                     {loading ? "Saving..." : "Save Changes"}
                   </Button>
                 ) : (
-                  <Button type="button" onClick={() => setIsEditing(true)}>
+                  <Button type="button" onClick={() => setIsEditing(true)} className="bg-white text-black">
                     Edit Profile
                   </Button>
                 )}

@@ -69,26 +69,30 @@ export default function Listing() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <Input
-                  name="team1"
-                  value={matchData.team1}
-                  onChange={handleInputChange} // Typed handler
-                  placeholder="Team 1"
-                  required
-                  className="bg-gray-700 text-white"
-                />
-                <Input
-                  name="team2"
-                  value={matchData.team2}
-                  onChange={handleInputChange} // Typed handler
-                  placeholder="Team 2"
-                  required
-                  className="bg-gray-700 text-white"
-                />
+                {/* Align Team 1 and Team 2 in a row */}
+                <div className="flex gap-4">
+                  <Input
+                    name="team1"
+                    value={matchData.team1}
+                    onChange={handleInputChange}
+                    placeholder="Team 1"
+                    required
+                    className="bg-gray-700 text-white flex-1"
+                  />
+                  <Input
+                    name="team2"
+                    value={matchData.team2}
+                    onChange={handleInputChange}
+                    placeholder="Team 2"
+                    required
+                    className="bg-gray-700 text-white flex-1"
+                  />
+                </div>
+
                 <Input
                   name="date"
                   value={matchData.date}
-                  onChange={handleInputChange} // Typed handler
+                  onChange={handleInputChange}
                   type="date"
                   required
                   className="bg-gray-700 text-white"
@@ -96,7 +100,7 @@ export default function Listing() {
                 <Input
                   name="time"
                   value={matchData.time}
-                  onChange={handleInputChange} // Typed handler
+                  onChange={handleInputChange}
                   type="time"
                   required
                   className="bg-gray-700 text-white"
@@ -104,7 +108,7 @@ export default function Listing() {
                 <Input
                   name="venue"
                   value={matchData.venue}
-                  onChange={handleInputChange} // Typed handler
+                  onChange={handleInputChange}
                   placeholder="Venue + Match Details"
                   required
                   className="bg-gray-700 text-white"

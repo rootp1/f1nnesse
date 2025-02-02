@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -14,10 +13,10 @@ import {
 import AccessControl from "../components/AccessControl";
 import { db } from "@/lib/firebase";
 import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
-import { ethers } from "ethers";
+import { BrowserProvider, Contract } from "ethers";
 import bettingAbi from "@/lib/bettingAbi.json";
 
-const CONTRACT_ADDRESS = "0x19da7f4c6ae1B194CBB8585a7d7aEcB8d5D1987E";
+const CONTRACT_ADDRESS = "0xad4b8a16c8786641aa7c17ecac953ecd2ffb1170";
 
 export default function Admin() {
   const [matches, setMatches] = useState<Array<any>>([]);
@@ -51,35 +50,35 @@ export default function Admin() {
 
     try {
       setLoading(true);
+      if (!window.ethereum) throw new Error("MetaMask not detected!");
 
-      if (!window.ethereum) {
-        alert("MetaMask not detected!");
-        return;
-      }
-
-      // Convert team name to contract identifier ("A" or "B")
-      const contractTeamIdentifier = winner === selectedMatch.team1 ? "A" : "B";
-
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, bettingAbi, signer);
+      const contract = new Contract(CONTRACT_ADDRESS, bettingAbi, signer);
 
-      // Send the contract identifier to the smart contract
-      const tx = await contract.declareWinner(contractTeamIdentifier);
-      await tx.wait();
+      // Step 1: Declare winner with actual team name
+      const declareTx = await contract.declareWinner(winner);
+      await declareTx.wait();
 
-      // Update Firestore with original team name
+      // Step 2: Reset contract for new matches
+      const resetTx = await contract.resetMatch();
+      await resetTx.wait();
+
+      // Update Firestore
       const matchRef = doc(db, "matches", selectedMatchId);
-      await updateDoc(matchRef, { result: winner, updated: true });
+      await updateDoc(matchRef, { 
+        result: winner, 
+        updated: true,
+        contractReset: true 
+      });
 
-      alert("Match result uploaded and payouts distributed!");
-      
+      alert("Match result processed successfully!");
       setSelectedMatchId(null);
       setSelectedMatch(null);
       setWinner("");
-    } catch (error) {
-      console.error("Error uploading result:", error);
-      alert("Error processing the result. Check the console for details.");
+    } catch (error: any) {
+      console.error("Error:", error);
+      alert(error.reason || error.message || "Error processing result");
     } finally {
       setLoading(false);
     }
@@ -89,43 +88,45 @@ export default function Admin() {
     <AccessControl allowedUserTypes={["admin"]}>
       <main className="min-h-screen pt-16">
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-4xl font-bold mb-8">Admin: Upload Match Results</h1>
+          <h1 className="text-4xl font-bold text-primary mb-8 text-white">Match Administration</h1>
           <Card>
             <CardHeader>
-              <CardTitle>Upload Result</CardTitle>
+              <CardTitle className="text-secondary ">Match Resolution</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <Select onValueChange={(value) => setSelectedMatchId(value)}>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <Select onValueChange={setSelectedMatchId}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a match" />
+                    <SelectValue placeholder="Select match" className="text-muted-foreground" />
                   </SelectTrigger>
                   <SelectContent>
                     {matches.map((match) => (
-                      <SelectItem key={match.id} value={match.id}>
-                        {match.sport}: {match.team1} vs {match.team2} ({match.date})
+                      <SelectItem key={match.id} value={match.id} className="text-primary">
+                        {match.sport}: {match.team1} vs {match.team2}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
 
                 {selectedMatch && (
-                  <div className="space-y-2">
-                    <p className="text-lg">
+                  <div className="space-y-4 p-4 bg-muted rounded-lg">
+                    <p className="text-lg font-semibold text-primary">
                       {selectedMatch.team1} vs {selectedMatch.team2}
                     </p>
                     <div className="flex gap-4">
                       <Button
                         type="button"
-                        variant={winner === selectedMatch.team1 ? "default" : "outline"}
+                        variant={winner === selectedMatch.team1 ? "default" : "secondary"}
                         onClick={() => setWinner(selectedMatch.team1)}
+                        className={winner === selectedMatch.team1 ? "text-background" : "text-primary"}
                       >
                         {selectedMatch.team1} Wins
                       </Button>
                       <Button
                         type="button"
-                        variant={winner === selectedMatch.team2 ? "default" : "outline"}
+                        variant={winner === selectedMatch.team2 ? "default" : "secondary"}
                         onClick={() => setWinner(selectedMatch.team2)}
+                        className={winner === selectedMatch.team2 ? "text-background" : "text-primary"}
                       >
                         {selectedMatch.team2} Wins
                       </Button>
@@ -135,10 +136,10 @@ export default function Admin() {
 
                 <Button
                   type="submit"
-                  className="w-full"
-                  disabled={!selectedMatchId || !winner || loading}
+                  disabled={!winner || loading}
+                  className="w-full text-background bg-primary hover:bg-primary-dark"
                 >
-                  {loading ? "Uploading..." : "Upload Result"}
+                  {loading ? "Processing..." : "Finalize Match"}
                 </Button>
               </form>
             </CardContent>

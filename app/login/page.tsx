@@ -10,7 +10,6 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 
 export default function Login() {
   const [loginType, setLoginType] = useState<"user" | "admin" | null>(null)
-  const [isWalletConnected, setIsWalletConnected] = useState(false)
   const [adminCredentials, setAdminCredentials] = useState({
     username: "",
     password: ""
@@ -46,21 +45,20 @@ export default function Login() {
     }
   }
 
-  const handleConnectWallet = () => {
-    console.log("Connecting wallet")
-    setIsWalletConnected(true)
-  }
-
   if (!loginType) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Card className="w-[350px]">
+        <Card className="w-[350px] bg-black text-white">
           <CardHeader>
             <CardTitle>Choose Login Type</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
-            <Button onClick={() => setLoginType("user")}>Login as User</Button>
-            <Button onClick={() => setLoginType("admin")}>Login as Admin</Button>
+            <Button onClick={() => setLoginType("user")} className="bg-white text-black">
+              Login as User
+            </Button>
+            <Button onClick={() => setLoginType("admin")} className="bg-white text-black">
+              Login as Admin
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -69,18 +67,15 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-[350px]">
+      <Card className="w-[350px] bg-black text-white">
         <CardHeader>
           <CardTitle>{loginType === "user" ? "User Login" : "Admin Login"}</CardTitle>
         </CardHeader>
         <CardContent>
           {loginType === "user" ? (
             <div className="space-y-4">
-              <Button onClick={handleGoogleLogin} className="w-full">
+              <Button onClick={handleGoogleLogin} className="w-full bg-white text-black">
                 Login with Google
-              </Button>
-              <Button onClick={handleConnectWallet} className="w-full" disabled={isWalletConnected}>
-                {isWalletConnected ? "Wallet Connected" : "Connect Wallet"}
               </Button>
             </div>
           ) : (
@@ -105,7 +100,7 @@ export default function Login() {
                   password: e.target.value
                 }))}
               />
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full bg-white text-black">
                 Login
               </Button>
             </form>
