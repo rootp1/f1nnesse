@@ -21,9 +21,9 @@ const LearnMoreCard = ({ onClose }: LearnMoreCardProps) => {
         exit={{ scale: 0.9, opacity: 0 }}
         className="bg-gray-800 p-8 rounded-lg max-w-md"
       >
-        <h2 className="text-2xl font-bold mb-4">About SportsBet</h2>
+        <h2 className="text-2xl font-bold mb-4">About f1nnesse</h2>
         <p className="text-gray-300 mb-6">
-          SportsBet is a cutting-edge sports betting platform that offers a seamless and exciting experience for sports
+          f!nnesse is a cutting-edge sports betting platform that offers a seamless and exciting experience for sports
           enthusiasts. With our app, you can:
         </p>
         <ul className="list-disc list-inside text-gray-300 mb-6">
