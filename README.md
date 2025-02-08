@@ -39,8 +39,12 @@ To run this project locally, make sure you have the following tools installed:
    ```
 
 3. Set up environment variables:
-   - Create a `.env` file in the root of the project and configure the necessary keys (e.g., Firebase API keys, Ethereum network settings).
+   - Update the `.env.local` file in the root of the project and configure the necessary keys (e.g., Firebase API keys, Ethereum network settings).
+   Install the dotenv package (if not installed):
+```sh
+npm install dotenv
 
+```
 4. Run the development server:
    ```bash
    npm run dev
